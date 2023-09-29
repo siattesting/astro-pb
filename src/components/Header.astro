@@ -1,21 +1,12 @@
 ---
+import Hamburger from './Hamburger.astro'
+import Navigation from './Navigation.astro'
 ---
-  <nav>
-    <a href="/">Home</a>
-    <a href="/about/">About</a>
-    <a href="/blog/">Blog</a>
-  </nav>
+  <header>
+    <nav>
+      <Hamburger />
+      <Navigation />
+    </nav>    
+  </header>
 
 
-<style>
-nav {
-  display: flex;
-  text-decoration: none;
-  background: #ccc;
-}
-
-nav a {
-  padding: 10px;
-}
-
-</style>
