@@ -2,14 +2,15 @@
   box-sizing: border-box;
 }
 html {
-  font-family: "Poppins";
+  font-family: 'Poppins';
   background-color: #f1f5f9;
 }
 
 body {
-  margin: 2em auto;
+  margin: 0 auto;
   width: 100%;
   max-width: 80ch;
+  padding: 1rem;
   line-height: 1.5;
 }
 
@@ -18,12 +19,12 @@ body {
   display: inline-block;
   text-decoration: none;
   align-items: center;
-  color: #FFF;
+  color: #fff;
   height: 60px;
   line-height: 60px;
   padding: 0 40px;
   border-radius: 15px;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -37,18 +38,19 @@ body {
   background: #18151a;
 }
 
+/* nav styles */
+
 nav a:hover,
 nav a:focus {
-  background: #F1F1F1;
+  background: #f1f1f1;
 }
 
 nav a:active {
   background: teal;
 }
 
-
 .nav-links {
-  width: 100%
+  width: 100%;
   display: none;
   margin: 0;
 }
@@ -60,15 +62,15 @@ nav a:active {
 }
 
 .hamburger {
+  padding-right: 20px;
   cursor: pointer;
-  padding-right: 10px;
 }
 
 .hamburger .line {
-  width: 100%
+  width: 100%;
   top: 5rem;
-  left: 40px:
-  background-color: #ff0776
+  left: 40px;
+  background-color: #ff0776;
 }
 
 .expanded {
@@ -89,4 +91,13 @@ nav a:active {
   .hamburger {
     display: none;
   }
+}
+
+html.dark {
+  background-color: #0d0950;
+  color: #fff;
+}
+
+.dark .nav-links a {
+  color: #fff;
 }
