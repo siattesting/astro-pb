@@ -5,6 +5,7 @@ const currentUser = data.user
 ---
 <Layout title="Home Page">
 	<h2>Index page</h2>
+	{currentUser && <h2>Welcome {currentUser.email}!</h2>}
 	{currentUser &&
 	<a href="/auth/profile">Your profile</a> 
 	}
