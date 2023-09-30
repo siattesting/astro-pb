@@ -1,39 +1,149 @@
 ---
 import Layout from "../../layouts/Layout.astro"
 const pageTitle = "Signup page"
+
+
+// import { POCKET } from '../../lib/databases/PocketBase'
+// import { validateEmail } from '../../lib/utils.js'
+const locals = Astro.locals
+
+const errors = { username: "", email: "", password: "", passwordConfirm: ""}
+const hasErrors = Object.values(errors).some(msg => msg)
+if (Astro.request.method === "POST") {
+    try {
+        const data = await Astro.request.formData()
+        const username = data.get("username")
+        const email = data.get("email")
+        const password = data.get("password")
+        const passwordConfirm = data.get("passwordConfirm")
+        if (typeof username !== "string" || username.length < 3) {
+            errors.username += "Please enter a username of at least 3 characters ";
+        }
+        if (typeof email !== "string" || !validateEmail(email)) {
+            errors.email += "Please enter a valid email such as example@domain.com. ";
+        }
+        if (typeof password !== "string" || password.length < 6) {
+            errors.password += "Passwords must be at leat 6 characters long ";
+        }
+        if (typeof passwordConfirm !== "string" || passwordConfirm !== password) {
+            errors.passwordConfirm += "Passwords and confrimation password must macth ";
+        }
+        // const hasErrors = Object.values(errors).some(msg => msg)
+        if (!hasErrors) {
+            // register ther user;
+            // Do something with the form data
+            // Try register the user
+            try {
+                // console.log("Data to submit: ", data)
+                await locals.pb.collection('users').create({email, password, passwordConfirm})
+                // await POCKET.collection('users').create(email, password)
+            } catch (e) {
+                console.error(e.message)
+                throw e
+            }
+
+            //redirect to login page
+            return Astro.redirect("/auth/login")
+
+        }
+        
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
+    }
+}
 ---
-<Layout title={pageTitle}>
-<div>
-<h2>{pageTitle}</h2>
-<form method="POST">
-<label class="field">
-<span>Email</span>
-<input type="email" name="email" placeholder="Email" />
-</label>
-<label class="field">
-<span>Password</span>
-<input type="password" name="password" placeholder="Password" />
-</label>
-<label class="field">
-<span>Confirm Password</span>
-<input type="password" name="passwordConfirm" placeholder="Confirm your password" />
-</label>
-<button class="btn">Submit</button>
-</form>
-</div>
+<Layout pageTitle={pageTitle}>
+    <div class="row">
+        <form method="POST" class="form">
+            <div>
+                <label for="username">Username:
+                    <input type="text" name="username" required minlength="3" />
+                </label>
+                {errors.username && <span class="error">{errors.username}</span>}
+            </div>
+            <div>
+                <label for="email">Email:
+                    <input type="email" name="email" required />
+                </label>
+                {errors.email && <span class="error">{errors.email}</span>}
+            </div>
+            <div>
+                <label for="password">Password:
+                    <input type="password" name="password" required minlength="6" />
+                </label>
+                {errors.password && <span class="error">{errors.password}</span>}
+            </div>
+            <div>
+                <label for="passwordConfirm">Confirm Password:
+                    <input type="password" name="passwordConfirm" required minlength="6" />
+                </label>
+                {errors.passwordConfirm && <span class="error">{errors.passwordConfirm}</span>}
+            </div>
+            <input type="submit" value="Submit" disabled={hasErrors} />
+        </form>
+    </div>
 </Layout>
 
 <style>
-form {
-  display: grid;
-  grid-template-rows: 1fr;
-  gap: 1em;
-}
-.field {
-  height: 40px;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  margin-bottom: 0.5em;
-  
-}
+    .error {
+        color: tomato;
+        font-weight: bold;
+    }
+    input:invalid {
+        border: 2px solid red;
+    }
+    
+    form {
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        margin-bottom: 15px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .btn {
+    background: #171e2a;
+    display: inline-block;
+    text-decoration: none;
+    align-items: center;
+    color: #FFF;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 40px;
+    border-radius: 15px;
+    font-family: "Poppins";
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    border: 0;
+    cursor: pointer;
+    user-select: none;
+  }
+  }
 </style>
