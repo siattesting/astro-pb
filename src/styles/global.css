@@ -5,39 +5,33 @@ html {
   font-family: 'Poppins';
   background-color: #f1f5f9;
 }
+html.dark {
+  background-color: #0d0950;
+  color: #fff;
+}
+
+.dark .nav-links a {
+  color: #fff;
+}
 body {
   min-height: 100vh;
   display: grid;
-  grid-gap: 1em;
-  grid:
-    'header' auto
-    'nav' auto
-    'main' 1fr
-    'footer' auto
-    / 1fr;
+  gap: 1em;
+  grid-template-rows: auto auto 1fr auto;
 }
 
 @media (min-width: 40em) {
   body {
-    grid:
-      'header header' auto
-      'nav main' 1fr
-      'nav footer' auto
-      / 12em 1fr;
+    grid-template-columns: 12em 1fr;
+    grid-template-rows: auto 1fr auto;
   }
-}
 
-header {
-  grid-area: header;
-}
-nav {
-  grid-area: nav;
-}
-main {
-  grid-area: main;
-}
-footer {
-  grid-area: footer;
+  nav {
+    grid-row: span 2;
+  }
+  header {
+    grid-column: span 2;
+  }
 }
 
 /* show… */
