@@ -1,6 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro'
+const data = Astro.locals
+const currentUser = data.user
 ---
 <Layout title="Home Page">
 	<h2>Index page</h2>
+	{currentUser &&
+	<a href="/auth/profile">Your profile</a> 
+	}
 </Layout>
