@@ -1,0 +1,123 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { POCKET } from '../../lib/databases/PocketBase'
+import { validateEmail } from '../../lib/utils.js'
+// import { isLoggedIn, currentUser } from '../../lib/stores/users.ts'
+
+const pageTitle = "Login Page"
+const locals = Astro.locals
+
+const errors = { username: "", email: "", password: ""}
+const hasErrors = Object.values(errors).some(msg => msg)
+if (Astro.request.method === "POST") {
+    try {
+        const data = await Astro.request.formData()
+        const email = data.get("email")
+        const password = data.get("password")
+
+        if (typeof email !== "string" || !validateEmail(email)) {
+            errors.email += "Please enter a valid email such as example@domain.com. ";
+        }
+        if (typeof password !== "string" || password.length < 6) {
+            errors.password += "Passwords must be at leat 6 characters long ";
+        }
+
+        if (!hasErrors) {
+            // Do something with the form data
+            // Try logging in the user
+            try {
+                // console.log("Data to submit: ", data)
+                const { token, record } = await locals.pb.collection('users').authWithPassword( email, password)
+                // const { token, record } = await POCKET.collection('users').authWithPassword( email, password  )
+                // Update the isLoggedIn status to tru in $lib/stores/user.ts
+                isLoggedIn.set(true)
+                // currentUser.set(record)
+                
+                currentUser.set(locals.pb.authStore.model)
+                // console.log("TOKEN: ", token)
+                // console.log("Auth Record: " ,record)
+                // console.log('Current user: ', currentUser)
+                // return new Response('Success...');
+
+            } catch (e) {
+                console.error(e.message)
+                throw e
+            }
+
+            //redirect to home page
+            return Astro.redirect("/")
+
+        }
+        
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
+    }
+}
+---
+<Layout pageTitle={pageTitle}>
+    <div class="row">
+        <form method="POST" class="form">
+
+            <div class="form-field">
+                <label for="email">Email:
+                    <input type="email" name="email" required />
+                </label>
+                {errors.email && <span class="error">{errors.email}</span>}
+            </div>
+            <div class="form-field">
+                <label for="password">Password:
+                    <input type="password" name="password" required minlength="6" />
+                </label>
+                {errors.password && <span class="error">{errors.password}</span>}
+            </div>
+
+            <input type="submit" value="Submit" disabled={hasErrors} />
+        </form>
+    </div>
+</Layout>
+
+<style>
+    .error {
+        color: tomato;
+        font-weight: bold;
+    }
+    input:invalid {
+        border: 2px solid red;
+    }
+    
+    form {
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        margin-bottom: 15px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    
+</style>
