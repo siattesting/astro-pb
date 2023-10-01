@@ -58,6 +58,7 @@ if (Astro.request.method === "POST") {
 ---
 <Layout pageTitle={pageTitle}>
     <div class="row">
+    <h2>{pageTitle}</h2>
         <form method="POST" class="form">
 
             <div class="form-field">
@@ -75,6 +76,8 @@ if (Astro.request.method === "POST") {
 
             <input type="submit" value="Submit" disabled={hasErrors} />
         </form>
+         <hr />
+        <p>Not yet registered? <a href="/auth/signup">Create an account</a></p>
     </div>
 </Layout>
 
