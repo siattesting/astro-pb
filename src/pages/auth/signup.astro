@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro"
-const pageTitle = "Signup page"
+const pageTitle = "Registration page"
 
 
 // import { POCKET } from '../../lib/databases/PocketBase'
@@ -56,6 +56,7 @@ if (Astro.request.method === "POST") {
 ---
 <Layout pageTitle={pageTitle}>
     <div class="row">
+    <h2>{pageTitle}</h2>
         <form method="POST" class="form">
             <div>
                 <label for="username">Username:
