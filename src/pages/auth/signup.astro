@@ -55,34 +55,41 @@ if (Astro.request.method === "POST") {
 }
 ---
 <Layout pageTitle={pageTitle}>
-    <div class="row">
+    <div class="box">
     <h2>{pageTitle}</h2>
         <form method="POST" class="form">
-            <div>
-                <label for="username">Username:
-                    <input type="text" name="username" required minlength="3" />
+            <div class="field">
+                <label for="username" class="label">Username:
+                    <input type="text" class="input" name="username" required minlength="3" />
                 </label>
-                {errors.username && <span class="error">{errors.username}</span>}
+                {errors.username && <span class="help error">{errors.username}</span>}
             </div>
-            <div>
-                <label for="email">Email:
-                    <input type="email" name="email" required />
+            <div class="field">
+                <label for="email" class="label">Email:
+                    <input type="email" class="input" name="email" required />
                 </label>
-                {errors.email && <span class="error">{errors.email}</span>}
+                {errors.email && <span class="help error">{errors.email}</span>}
             </div>
-            <div>
-                <label for="password">Password:
-                    <input type="password" name="password" required minlength="6" />
+            <div class="field">
+                <label for="password" class="label">Password:
+                    <input type="password" class="input" name="password" required minlength="6" />
                 </label>
-                {errors.password && <span class="error">{errors.password}</span>}
+                {errors.password && <span class="help error">{errors.password}</span>}
             </div>
-            <div>
-                <label for="passwordConfirm">Confirm Password:
-                    <input type="password" name="passwordConfirm" required minlength="6" />
+            <div class="field">
+                <label for="passwordConfirm" class="label">Confirm Password:
+                    <input type="password" class="input" name="passwordConfirm" required minlength="6" />
                 </label>
-                {errors.passwordConfirm && <span class="error">{errors.passwordConfirm}</span>}
+                {errors.passwordConfirm && <span class="help error">{errors.passwordConfirm}</span>}
             </div>
-            <input type="submit" value="Submit" disabled={hasErrors} />
+            <div class="field is-grouped">
+  <div class="control">
+    <button class="button is-link" type="submit" disabled={hasErrors}>Submit</button>
+  </div>
+  <div class="control">
+    <button class="button is-link is-light" >Cancel</button>
+  </div>
+</div>
         </form>
         <hr />
         <p>Already have an account ? <a href="/auth/login">Login</a></p>
