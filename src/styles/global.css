@@ -50,20 +50,3 @@ footer {
     grid-column: span 2;
   }
 }
-
-/* show… */
-body {
-  background: var(--dark-purple);
-}
-
-header,
-nav,
-main,
-footer {
-  background: var(--background);
-  padding: 1em;
-}
-
-h1 {
-  font-family: var(--zilla);
-}
