@@ -25,7 +25,9 @@ const { title } = Astro.props;
     <Header />
     <Navigation />
     <main><slot /></main>		
-    <Footer />
+    <footer>
+      <p>&copy {new Date().getFullYear()} | astro-pb</p>
+    <footer>
     <script>
       import "../scripts/menu.js"
     </script>

@@ -18,6 +18,14 @@ body {
   display: grid;
   gap: 1em;
   grid-template-rows: auto auto 1fr auto;
+  max-width: 80ch;
+}
+
+footer {
+  text-align: center;
+  margin-top: 1em;
+  border-top: 1px solid #ccc;
+  background: #ccc;
 }
 
 @media (min-width: 40em) {
@@ -28,6 +36,10 @@ body {
 
   nav {
     grid-row: span 2;
+  }
+  .nav-links a {
+    margin-right: 10px;
+    margin-bottom: 20px;
   }
   header {
     grid-column: span 2;
