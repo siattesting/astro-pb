@@ -21,6 +21,7 @@ body {
   gap: 1em;
   grid-template-rows: auto auto 1fr auto;
   max-width: 80ch;
+  margin: 2em auto;
 }
 
 footer {
