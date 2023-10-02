@@ -1,53 +1,59 @@
-/* @import 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css'; */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;800&family=VT323&display=swap');
 
 * {
-  box-sizing: border-box;
-}
-html {
-  font-family: 'Poppins';
-  background-color: #f1f5f9;
-}
-html.dark {
-  background-color: #0d0950;
-  color: #fff;
-}
-
-.dark .nav-links a {
-  color: #fff;
+	box-sizing: border-box;
 }
 body {
-  min-height: 100vh;
-  display: grid;
-  gap: 1em;
-  grid-template-rows: auto auto 1fr auto;
-  max-width: 80ch;
-  margin: 2em auto;
+	margin: 0 auto;
+	min-height: 100vh;
+	width: 90%;
+	font-family: 'Poppins';
+	display: grid;
+	grid-gap: 1em;
+	grid-template-rows: auto auto 1fr auto;
+}
+
+nav {
+	list-style: none;
+	display: flex;
+	background-color: #ccc;
+}
+nav a {
+	margin-right: 0.5em;
+	padding: 0.5em;
+	text-decoration: none;
+	text-transform: uppercase;
 }
 
 footer {
-  text-align: center;
-  margin-top: 1em;
-  border-top: 1px solid #ccc;
-  background: #ccc;
+	border-top: 1px solid #ccc;
+	margin-top: 2em;
 }
 
-@media (min-width: 40em) {
-  body {
-    grid-template-columns: 12em 1fr;
-    grid-template-rows: auto 1fr auto;
-  }
+@media screen and (min-width: 40em) {
+	body {
+		grid-template-columns: 10em 1fr;
+		grid-template-rows: auto 1fr auto;
+	}
+	header {
+		grid-column: span 2;
+	}
 
-  nav {
-    grid-row: span 2;
-  }
-  .nav-links a {
-    margin-right: 10px;
-    margin-bottom: 20px;
-  }
-  header {
-    grid-column: span 2;
-  }
-  footer {
-    grid-column: span 2;
-  }
+	nav {
+		grid-row: span 2;
+	}
+
+	nav {
+	}
+	nav {
+		display: flex;
+		flex-direction: column;
+		list-style: none;
+		background-color: #ccc;
+	}
+
+	nav a:link,
+	nav a:visted {
+		text-decoration: none;
+	}
 }
