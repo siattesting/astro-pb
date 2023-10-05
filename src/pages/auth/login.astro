@@ -30,10 +30,10 @@ if (Astro.request.method === "POST") {
                 const { token, record } = await locals.pb.collection('users').authWithPassword( email, password)
                 // const { token, record } = await POCKET.collection('users').authWithPassword( email, password  )
                 // Update the isLoggedIn status to tru in $lib/stores/user.ts
-                isLoggedIn.set(true)
+                // isLoggedIn.set(true)
                 // currentUser.set(record)
                 
-                currentUser.set(locals.pb.authStore.model)
+                // currentUser.set(locals.pb.authStore.model)
                 // console.log("TOKEN: ", token)
                 // console.log("Auth Record: " ,record)
                 // console.log('Current user: ', currentUser)
